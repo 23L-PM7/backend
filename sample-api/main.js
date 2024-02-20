@@ -1,10 +1,12 @@
 const express = require("express");
 const fs = require("fs");
+var cors = require("cors");
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/articles", (req, res) => {
   const data = fs.readFileSync("articles.json", "utf8");
@@ -43,7 +45,7 @@ app.put("/articles/update/:id", (req, res) => {
   // TODO
 });
 
-app.get("/articles/delete/:id", (req, res) => {
+app.delete("/articles/delete/:id", (req, res) => {
   // TODO
 });
 
