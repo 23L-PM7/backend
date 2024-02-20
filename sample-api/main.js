@@ -17,19 +17,33 @@ app.post("/articles/create", (req, res) => {
   const data = fs.readFileSync("articles.json", "utf8");
   const list = JSON.parse(data);
 
+  const articleId = list.length + 1;
+
   list.push({
+    id: articleId,
     title: title,
     desc: desc,
   });
+
   fs.writeFileSync("articles.json", JSON.stringify(list));
   res.json([{ status: "Success" }]);
 });
 
-app.get("/articles/update", (req, res) => {
+app.put("/articles/update/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+
+  const updateData = req.body;
+  // {
+  //   title: updateData.title,
+  //   desc: updateData.desc,
+  // }
+
+  res.json([{ status: "Success" }]);
   // TODO
 });
 
-app.get("/articles/delete", (req, res) => {
+app.get("/articles/delete/:id", (req, res) => {
   // TODO
 });
 
