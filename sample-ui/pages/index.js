@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [articles, setArticles] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   function loadTasks() {
     axios.get("http://localhost:3000/tasks").then((response) => {
-      setArticles(response.data);
+      setTasks(response.data);
     });
   }
 
@@ -44,15 +44,15 @@ export default function Home() {
       <button className="mb-2 btn btn-primary" onClick={createNewTask}>
         New task
       </button>
-      {articles.map((article) => (
-        <div key={article.id} className="mb-2 shadow card bg-base-100">
+      {tasks.map((task) => (
+        <div key={task.id} className="mb-2 shadow card bg-base-100">
           <div className="card-body">
             <div className="flex items-center">
-              <div className="flex-1">{article.title}</div>
-              <button className="btn btn-ghost btn-sm" onClick={editTask}>
+              <div className="flex-1">{task.title}</div>
+              <button className="btn btn-ghost btn-sm" onClick={() => editTask(task.id)}>
                 Edit
               </button>
-              <button className="btn btn-ghost btn-sm" onClick={() => deleteTask(article.id)}>
+              <button className="btn btn-ghost btn-sm" onClick={() => deleteTask(task.id)}>
                 Delete
               </button>
             </div>

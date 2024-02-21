@@ -19,10 +19,10 @@ app.post("/tasks/create", (req, res) => {
   const data = fs.readFileSync("tasks.json", "utf8");
   const list = JSON.parse(data);
 
-  const articleId = Date.now();
+  const taskId = Date.now();
 
   list.push({
-    id: articleId,
+    id: taskId,
     title: title,
   });
 
