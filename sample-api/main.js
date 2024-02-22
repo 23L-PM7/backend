@@ -31,8 +31,16 @@ app.post("/tasks/create", (req, res) => {
 });
 
 app.put("/tasks/update/:id", (req, res) => {
-  const id = req.params.id;
-  // TODO
+  const { id } = req.params;
+  const { title } = req.body;
+
+  const data = fs.readFileSync("tasks.json", "utf8");
+  const list = JSON.parse(data);
+
+  const index = list.findIndex((item) => item.id === Number(id));
+
+  list[index].title = title;
+  fs.writeFileSync("tasks.json", JSON.stringify(list));
 
   res.json([{ status: "Success" }]);
 });

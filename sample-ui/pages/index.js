@@ -17,18 +17,29 @@ export default function Home() {
   function createNewTask() {
     const title = prompt("Task name?");
 
-    axios
-      .post("http://localhost:3000/tasks/create", {
-        title,
-      })
-      .then(() => {
-        loadTasks();
-      });
+    if (title) {
+      axios
+        .post("http://localhost:3000/tasks/create", {
+          title,
+        })
+        .then(() => {
+          loadTasks();
+        });
+    }
   }
 
-  function editTask() {
-    const name = prompt("Task name?");
-    console.log(name);
+  function editTask(task) {
+    const editedTitle = prompt("Edit?", task.title);
+
+    if (editedTitle) {
+      axios
+        .put(`http://localhost:3000/tasks/update/${task.id}`, {
+          title: editedTitle,
+        })
+        .then(() => {
+          loadTasks();
+        });
+    }
   }
 
   function deleteTask(id) {
@@ -49,7 +60,7 @@ export default function Home() {
           <div className="card-body">
             <div className="flex items-center">
               <div className="flex-1">{task.title}</div>
-              <button className="btn btn-ghost btn-sm" onClick={() => editTask(task.id)}>
+              <button className="btn btn-ghost btn-sm" onClick={() => editTask(task)}>
                 Edit
               </button>
               <button className="btn btn-ghost btn-sm" onClick={() => deleteTask(task.id)}>
